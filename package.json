@@ -1,0 +1,44 @@
+{
+  "name": "funneler",
+  "description": "Framework for filtering, sorting and mashing data together from multiple sources in a series of asynchronous funnels.",
+  "tags": [
+    "filtering",
+    "filter",
+    "sorting",
+    "sort",
+    "mashup",
+    "mash",
+    "mashing",
+    "data",
+    "mapreduce",
+    "util",
+    "utility"
+  ],
+  "version": "0.1.0",
+  "author": "Andrew Kandels",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Funneler/Funneler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Funneler/Funneler/issues"
+  },
+  "license": "BSD-2",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "underscore": "~1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "chai": "^3.5.0",
+    "eslint": "2.3.0"
+  },
+  "scripts": {
+    "test": "npm run lint && mocha",
+    "lint": "eslint lib/ tests/ && echo Lint passed."
+  }
+}
