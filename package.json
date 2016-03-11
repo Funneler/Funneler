@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/Funneler/Funneler/issues"
   },
-  "license": "BSD-2",
+  "license": "BSD-2-Clause",
   "engines": {
     "node": ">=0.12.0"
   },
