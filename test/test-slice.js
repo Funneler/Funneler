@@ -4,6 +4,8 @@ var Funneler = require('../index.js'),
     chai = require('chai'),
     assert = chai.assert;
 
+chai.config.includeStack = true;
+
 describe('$slice', function() {
     var f;
 
@@ -16,7 +18,7 @@ describe('$slice', function() {
     it('should slice from a promise', function(done) {
         f.addInstruction(
             { $slice() {
-                return this.getStorage().slice.apply(this.getStorage(), [1, 3]);
+                return this.slice(1, 3);
             } }
         );
 

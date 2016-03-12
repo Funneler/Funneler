@@ -4,12 +4,14 @@ var Funneler = require('../index.js'),
     chai = require('chai'),
     assert = chai.assert;
 
+chai.config.includeStack = true;
+
 describe('$sort', function() {
     var f;
 
     beforeEach(function() {
         f = new Funneler([
-            { $map() { [1, 2, 3, 4, 5].forEach(id => this.emit(id)) } }
+            { $map() { this.emit([1, 2, 3, 4, 5]) } }
         ]);
     });
 

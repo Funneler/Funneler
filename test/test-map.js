@@ -4,6 +4,8 @@ var Funneler = require('../index.js'),
     chai = require('chai'),
     assert = chai.assert;
 
+chai.config.includeStack = true;
+
 describe('$map', function() {
     var f;
 

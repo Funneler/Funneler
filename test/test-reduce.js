@@ -4,6 +4,8 @@ var Funneler = require('../index.js'),
     chai = require('chai'),
     assert = chai.assert;
 
+chai.config.includeStack = true;
+
 describe('$reduce', function() {
     var f;
 
@@ -37,7 +39,7 @@ describe('$reduce', function() {
             { $reduce(id) { 
                 return new Promise((resolve, reject) => {
                     if (id == 1) {
-                        this.getStorage().remove(id);
+                        this.reduce(id);
                     }
                     resolve();
                 });
@@ -57,13 +59,10 @@ describe('$reduce', function() {
     it('should batch reduce asynchronously', function(done) {
         f.addInstruction(
             { $reduce: [ 1, function(ids) { 
-                return new Promise((resolve, reject) => {
-                    ids.forEach(id => {
-                        if (id == 1) {
-                            this.getStorage().remove(id).then(resolve).catch(reject);
-                        }
-                    });
-                    resolve();
+                ids.forEach(id => {
+                    if (id == 1) {
+                        this.reduce(id);
+                    }
                 });
             } ] }
         );
