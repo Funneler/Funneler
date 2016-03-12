@@ -38,7 +38,7 @@
     "eslint": "2.3.0"
   },
   "scripts": {
-    "test": "npm run lint && mocha",
+    "test": "mocha",
     "lint": "eslint lib/ tests/ && echo Lint passed."
   }
 }
