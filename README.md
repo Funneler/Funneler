@@ -1,7 +1,7 @@
 # Funneler - mash together data from multiple sources asynchronously
 
 [![npm package](https://nodei.co/npm/funneler.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/funnler/)
-[![Build Status](https://travis-ci.org/Funneler/Funneler.svg?branch=master)
+[![Build Status](https://travis-ci.org/Funneler/Funneler.svg?branch=master)](https://travis-ci.org/Funneler/Funneler)
 [![Dependency Status](https://img.shields.io/david/funneler/funneler.svg?style=flat-square)](https://david-dm.org/funneler/funneler)
 [![Gitter](https://img.shields.io/badge/gitter-join_chat-blue.svg?style=flat-square)](https://gitter.im/funneler/funneler?utm_source=badge)
 
