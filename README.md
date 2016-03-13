@@ -220,3 +220,5 @@ this.data(1, 'key'); // "value"
 // set a single index of an existing document
 this.data(1, 'key', 'new value');
 ```
+
+The data method can be engaged in any command step or after exec(). The data method returns a promise and aschronously performs the data change or fetch operation -- this is because the storage object is replaceable and should support asynchronous method alternatives to in-memory, such as a database, memcached instance, etc..
