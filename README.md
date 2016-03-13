@@ -8,11 +8,14 @@
 ## Table of contents
 
 - [Quick start](#quick-start)
-- [$map](#map)
-- [$reduce](#reduce)
-- [$sortData](#sort-data)
-- [$sort](#sort)
-- [$data](#data)
+- Commands
+    - [$map](#map)
+    - [$reduce](#reduce)
+    - [$sortData](#sort-data)
+    - [$sort](#sort)
+    - [$data](#sort)
+- [Configuration](#configuration)
+- [Documents](#documents)
 
 ## Quick start
 
@@ -30,9 +33,7 @@ var example = new Funneler({
 
         // gather unique identifiers from databases, web services, etc.
         $map() {
-            for (let i = 1; i < 50; i++) {
-                this.emit(i);
-            }
+            this.emit(_.range(1, 50));
         }
     },
 
@@ -47,7 +48,7 @@ var example = new Funneler({
             return new Promise((resolve, reject) => {
                 User.find({ "userNumber": { $in: identifiers } }).exec()
                 .then(result) {
-                    result.forEach(item => this.getStorage().extend(item._id, item));
+                    result.forEach(item => this.data(item._id, item));
                     resolve();
                 });
             });
@@ -57,7 +58,7 @@ var example = new Funneler({
     // and mash/join it together by unique identifier from another data source:
     {
         $data(id) {
-            this.getStorage().data(id, 'title', 'Item #' + id);
+            this.data(id, 'title', 'Item #' + id);
         }
     }
 });
@@ -108,7 +109,7 @@ The reduce command optionally filters down your identifiers. Use it as a functio
 ```js
 $reduce(id) {
     if (id < 5) {
-        this.getStorage().remove(id);
+        this.remove(id);
     }
 }
 
@@ -116,7 +117,7 @@ $reduce(id) {
 $reduce: [ 5, function(ids) {
     ids.forEach(id => {
         if (id < 5) {
-            this.getStorage().remove(id);
+            this.remove(id);
         }
     });
 } ]
@@ -136,9 +137,7 @@ Sort data can be invoked as either a single function per $map identifier or in b
 $sortData: [ 5, function(ids) {
     return new Promise((resolve, reject) => {
         User.find({ userNumber: { $in: ids }}).exec().then(results => {
-            results.forEach(result => {
-                this.getStorage().extend(result.userNumber, result);
-            });
+            results.forEach(result => this.data(result.userNumber, result));
         });
     });
 } ]
@@ -162,7 +161,7 @@ Note: The pagination plugin handles the slicing for you.
 
 ```js
 $slice() {
-    return this.getStorage().slice(0, 10); // offset, limit: returns a promise
+    return this.slice(0, 10); // offset, limit: returns a promise
 }
 ```
 
@@ -175,7 +174,7 @@ $data: [ 25, function(identifiers) {
     return new Promise((resolve, reject) => {
         User.find({ "userNumber": { $in: identifiers } }).exec()
         .then(result) {
-            result.forEach(item => this.getStorage().extend(item._id, item));
+            result.forEach(item => this.data(item._id, item));
             resolve();
         });
     });
@@ -195,8 +194,29 @@ The funneler instance maintains a dictionary of configuration options. Specify a
 You can get or set configuration options from the funneler class instance:
 
 ```js
-    $map() {
-        this.getConfig('page', 1); // 1 (specify a default option as the second parameter)
-        this.setConfig('page', 2);
-    }
+$map() {
+    this.getConfig('page', 1); // 1 (specify a default option as the second parameter)
+    this.setConfig('page', 2);
+}
+```
+
+## Documents
+
+Each mapped identifier is linked to a schema-less document. You can fetch, set and retrieve values from an identifier's document by using the .data() method of the parent Funneler instance:
+
+```js
+// fetch a document by id "1"
+this.data(1); // { key: "value", ... }
+
+// set or extend the existing document with another document
+this.data(1, { key: "value" }); // { key: "value", ... }
+
+// set or replace the existing document with another document
+this.data(1, { key: "value" }, true);
+
+// get a single index of an existing document
+this.data(1, 'key'); // "value"
+
+// set a single index of an existing document
+this.data(1, 'key', 'new value');
 ```
