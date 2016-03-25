@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     transform: [['babelify', {
-                        presets: ['es2015', 'react']
+                        presets: ['es2015']
                     }]],
                 },
                 files: {

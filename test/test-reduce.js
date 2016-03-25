@@ -11,7 +11,7 @@ describe('$reduce', function() {
 
     beforeEach(function() {
         f = new Funneler([
-            { $map() { this.emit(1).emit(2); } }
+            { $map() { this.emit([1, 2]); } }
         ]);
     });
 

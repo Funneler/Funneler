@@ -405,26 +405,30 @@ module.exports = function () {
     }, {
         key: 'emit',
         value: function emit(id) {
-            this.promises.push(this.storage.emit.apply(this.storage, [id]));
-            return this;
+            var p = this.storage.emit.apply(this.storage, [id]);
+            this.promises.push(p);
+            return p;
         }
     }, {
         key: 'reduce',
         value: function reduce(id) {
-            this.promises.push(this.storage.reduce.apply(this.storage, [id]));
-            return this;
+            var p = this.storage.reduce.apply(this.storage, [id]);
+            this.promises.push(p);
+            return p;
         }
     }, {
         key: 'slice',
         value: function slice(offset, limit) {
-            this.promises.push(this.storage.slice.apply(this.storage, [offset, limit]));
-            return this;
+            var p = this.storage.slice.apply(this.storage, [offset, limit]);
+            this.promises.push(p);
+            return p;
         }
     }, {
         key: 'data',
         value: function data(item, itemOrIndex, dataOrEmpty) {
-            this.promises.push(this.storage.data.apply(this.storage, [item, itemOrIndex, dataOrEmpty]));
-            return this;
+            var p = this.storage.data.apply(this.storage, [item, itemOrIndex, dataOrEmpty]);
+            this.promises.push(p);
+            return p;
         }
     }, {
         key: 'setConfig',

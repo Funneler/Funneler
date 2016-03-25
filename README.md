@@ -24,7 +24,7 @@ Here's a quick example of filtering and mashing together users from two data sou
 ```js
 var Funneler = require('funneler');
 
-var example = new Funneler({
+var example = new Funneler([
     // custom plugin:
     {
         // non-command ($) indexes are stored as configuration options for plugins:
@@ -61,7 +61,7 @@ var example = new Funneler({
             this.data(id, 'title', 'Item #' + id);
         }
     }
-});
+]);
 
 example.exec().then(data => {
     console.log(data);
