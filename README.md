@@ -47,7 +47,7 @@ var example = new Funneler([
         $data: [ 25, function(identifiers) {
             return new Promise((resolve, reject) => {
                 User.find({ "userNumber": { $in: identifiers } }).exec()
-                .then(result) {
+                .then(result => {
                     result.forEach(item => this.data(item._id, item));
                     resolve();
                 });
